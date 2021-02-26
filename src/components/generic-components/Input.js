@@ -13,8 +13,6 @@ const styles = {
     height: 40,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.GREY,
-    // marginVertical: 10,
-
 }
 
 export { Input };

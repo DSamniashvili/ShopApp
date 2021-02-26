@@ -5,6 +5,7 @@ import { signInUserAction } from '../../actions/index';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import { COLORS } from '../../constants/color-constants';
 
 const LoginScreen = ({ navigation }) => {
     const [state, setState] = useState({
@@ -48,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
         if (isLoading) {
             return <Loader size={'large'} />
         } else {
-            return <ButtonComponent name={'Login'} disabled={btnDisabled} onPress={onLogin} />
+            return <ButtonComponent color={COLORS.DEFAULT} name={'Login'} disabled={btnDisabled} onPress={onLogin} />
         }
     }
 
@@ -71,38 +72,40 @@ const LoginScreen = ({ navigation }) => {
                 }
                 {
                     !isLoading ?
-                        <Card>
-                            <CardSection>
-                                <TextInput style={textInputStyle}
-                                    value={email}
-                                    placeholder="enter email"
-                                    name='email'
-                                    onChange={(e) => handleChange(e, 'email')} />
-                            </CardSection>
-                            <CardSection>
-                                <TextInput
-                                    value={password}
-                                    placeholder="enter password"
-                                    style={textInputStyle}
-                                    name='password'
-                                    secureTextEntry
-                                    onChange={(e) => handleChange(e, 'password')} />
-                            </CardSection>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Card style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <CardSection>
+                                    <TextInput style={textInputStyle}
+                                        value={email}
+                                        placeholder="enter email"
+                                        name='email'
+                                        onChange={(e) => handleChange(e, 'email')} />
+                                </CardSection>
+                                <CardSection>
+                                    <TextInput
+                                        value={password}
+                                        placeholder="enter password"
+                                        style={textInputStyle}
+                                        name='password'
+                                        secureTextEntry
+                                        onChange={(e) => handleChange(e, 'password')} />
+                                </CardSection>
 
-                            <CardSection>
-                                {
-                                    renderButton()
-                                }
-                            </CardSection>
-                        </Card>
+                                <CardSection style={{ justifyContentL: 'center', alignItems: 'center', marginVertical: 20 }}>
+                                    {
+                                        renderButton()
+                                    }
+                                </CardSection>
+                            </Card>
+                            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                                <Text>Register</Text>
+                            </TouchableOpacity>
+                        </View>
                         :
                         null
                 }
 
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                <Text>Register</Text>
-            </TouchableOpacity>
         </SafeAreaView>
     );
 }

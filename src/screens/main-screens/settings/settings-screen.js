@@ -8,7 +8,7 @@ const SettingsScreen = ({ route, navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <CustomHeader title={'SettingsScreen'} isHome={true} navigation={{ navigation }} />
+            <CustomHeader title={'SettingsScreen'} isHome={true} navigation={navigation} />
             <View style={container}>
                 <Text>SettingsScreen!</Text>
                 <TouchableOpacity onPress={() => navigation.navigate('SettingsDetails')}>

@@ -1,18 +1,25 @@
 import React from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 import { CustomHeader } from '../../../components/index';
 
-const HomeScreen = ({ route, navigation }) => {
 
-    const { container, horizontal } = styles;
+import { useReducer, useSelector } from 'react-redux';
+import ProductItem from '../../../components/shop/ProductItem';
+
+const HomeScreen = ({ route, navigation }) => {
+    const products = useSelector(state => state.products.availableProducts);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <CustomHeader title={'Home'} isHome={true} navigation={{ navigation }} />
-            <View style={container}>
-                <Text>Home screen</Text>
-                <Text></Text>
-                <TouchableOpacity onPress={() => navigation.navigate('HomeDetails')}>
+            <CustomHeader
+                title={'Home'}
+                isHome={true}
+                navigation={navigation} />
+            <View style={styles.container}>
+                <FlatList data={products}
+                    renderItem={itemData => <ProductItem item={itemData.item} />} />
+                <TouchableOpacity onPress={() => navigation.navigate('Home Details')}>
                     <Text>Go to home details page</Text>
                 </TouchableOpacity>
             </View>
@@ -26,11 +33,6 @@ const styles = {
         justifyContent: "center",
         alignItems: 'center',
     },
-    horizontal: {
-        flexDirection: "row",
-        justifyContent: "space-around",
-        padding: 10
-    }
 }
 
 export { HomeScreen };

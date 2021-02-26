@@ -6,9 +6,7 @@ const GameText = props => {
     const { customStyles } = props;
     const { bodyFont } = styles;
 
-
     return <Text {...props} style={{ ...bodyFont, ...customStyles }} />
-
 }
 
 const styles = StyleSheet.create({
