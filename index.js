@@ -15,5 +15,6 @@ const Root = () => (
     <Provider store={store}>
         <App />
     </Provider>
-)
+);
+
 AppRegistry.registerComponent(appName, () => Root);
