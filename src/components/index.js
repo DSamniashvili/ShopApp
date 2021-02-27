@@ -8,5 +8,6 @@ export * from './generic-components/LogoTitle';
 export * from './generic-components/Input';
 export * from './custom-components/custom-drawer-content';
 export * from './generic-components/GameText';
+export * from './generic-components/CustomHeaderButton';
 
 

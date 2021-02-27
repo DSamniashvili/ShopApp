@@ -19,12 +19,14 @@ const HomeScreen = ({ route, navigation }) => {
         dispatch(addToCartAction(item));
     }
 
+    // removed CustomHeader since home screen implements react-native default navigation with the help of react-navigation-custom-buttons
+    // <CustomHeader
+    // title={'Home'}
+    // isHome={true}
+    // navigation={navigation} />
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <CustomHeader
-                title={'Home'}
-                isHome={true}
-                navigation={navigation} />
             <View style={styles.container}>
                 <FlatList data={products}
                     keyExtractor={item => item.id}
