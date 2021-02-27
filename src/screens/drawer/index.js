@@ -1,4 +1,4 @@
-export * from './notifications-screen';
+export * from './shopping-cart-screen';
 export * from './profile-screen';
 export * from './game/start-game-screen';
 export * from './game/play-game-screen';

@@ -15,7 +15,6 @@ const HomeScreen = ({ route, navigation }) => {
     const dispatch = useDispatch();
 
     const handleAddToCart = (item) => {
-        console.log('handleAddToCart', item);
         dispatch(addToCartAction(item));
     }
 

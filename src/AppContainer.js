@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { LoginScreen, RegistrationScreen } from './screens/stack-screens/index';
 import { HomeScreen, HomeDetailsScreen, SettingsScreen, SettingsDetailsScreen } from './screens/main-screens/index';
-import { NotificationsScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen } from './screens/drawer/index';
+import { ShoppingCartScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen } from './screens/drawer/index';
 import { CustomDrawerContent, CustomHeaderButtonsContainer, LogoTitle } from './components/index';
 import { Item } from 'react-navigation-header-buttons';
 
@@ -53,7 +53,7 @@ const homeHeaderOptionsHandler = ({ navigation }) => ({
                 iconName="shopping-cart"
                 iconSize={24}
                 color={COLORS.DEFAULT}
-                onPress={() => navigation.navigate('Notifications')} />
+                onPress={() => navigation.navigate('Cart')} />
         </CustomHeaderButtonsContainer>
     ),
 });
@@ -124,7 +124,7 @@ function DrawerNavigator() {
         <Drawer.Navigator initialRouteName="MenuTab"
             drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="MenuTab" component={TabNavigator} />
-            <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+            <Drawer.Screen name="Cart" component={ShoppingCartScreen} />
             <Drawer.Screen name="Game" component={GameContainerScreen} />
 
         </Drawer.Navigator>
