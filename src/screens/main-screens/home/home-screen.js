@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { CustomHeader } from '../../../components/index';
 import { useDispatch } from 'react-redux';
@@ -27,6 +27,7 @@ const HomeScreen = ({ route, navigation }) => {
                 navigation={navigation} />
             <View style={styles.container}>
                 <FlatList data={products}
+                    keyExtractor={item => item.id}
                     renderItem={itemData => <ProductItem
                         item={itemData.item}
                         onViewDetails={() => navigation.navigate('HomeDetails', {
@@ -42,8 +43,9 @@ const HomeScreen = ({ route, navigation }) => {
 const styles = {
     container: {
         flex: 1,
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: 'center',
+        padding: 5,
     },
 }
 

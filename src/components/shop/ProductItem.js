@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, TouchableOpacity, Dimensions } from 'react-native';
 import { Card } from '../index';
 
 const ProductItem = ({ item, onViewDetails, onAddToCart }) => {
@@ -23,12 +23,13 @@ const ProductItem = ({ item, onViewDetails, onAddToCart }) => {
 
 const styles = StyleSheet.create({
     productContainer: {
-        height: 300,
-        width: 300,
+        maxWidth: Dimensions.get('window').width,
+        width: Dimensions.get('window').width - 40,
+        height: 250,
     },
     image: {
         width: '100%',
-        height: '60%',
+        height: '70%',
     },
     titleStyle: {
         fontSize: 18,

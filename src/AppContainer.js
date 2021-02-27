@@ -4,16 +4,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { Image } from 'react-native';
+import { Image, Button } from 'react-native';
 import { IMAGE } from './constants/image-constants';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { LoginScreen, RegistrationScreen } from './screens/stack-screens/index';
 import { HomeScreen, HomeDetailsScreen, SettingsScreen, SettingsDetailsScreen } from './screens/main-screens/index';
 import { NotificationsScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen } from './screens/drawer/index';
-import { CustomDrawerContent } from './components/index';
+import { CustomDrawerContent, LogoTitle } from './components/index';
 
 import { GameContainerScreen } from './screens/drawer/index';
+import { COLORS } from './constants/color-constants';
 
 
 
@@ -32,10 +33,22 @@ const navOptionsHandler = () => ({
     headerShown: false
 })
 
-function HomeStack() {
+const homeHeaderOptionsHandler = ({ navigation }) => ({
+    headerTitle: props => <LogoTitle width={30} height={30} {...props} />,
+    headerLeft: () => (
+        <Button
+            onPress={() => navigation.openDrawer()}
+            title="Info"
+            color="#fff"
+        />
+    ),
+    headerRight: () => (<Icon name={'shopping-cart'} width={30} height={30} color={COLORS.DEFAULT} onPress={() => navigation.navigate('Notifications')} />)
+})
+
+function HomeStack({ navigation }) {
     return (
         <StackHome.Navigator initialRouteName="Home">
-            <StackHome.Screen name="Home" component={HomeScreen} options={navOptionsHandler} />
+            <StackHome.Screen name="Home" component={HomeScreen} options={homeHeaderOptionsHandler} />
             <StackHome.Screen name="HomeDetails" component={HomeDetailsScreen} options={navOptionsHandler} />
         </StackHome.Navigator>
     )
@@ -51,15 +64,18 @@ function SettingsStack() {
 }
 
 
-function GameStack() {
-    return (
-        <StackGame.Navigator initialRouteName="Game">
-            <StackGame.Screen name="Game" component={StartGameScreen} options={navOptionsHandler} />
-            <StackGame.Screen name="Play" component={PlayGameScreen} options={navOptionsHandler} />
-            <StackGame.Screen name="GameOver" component={GameOverScreen} options={navOptionsHandler} />
-        </StackGame.Navigator>
-    )
-}
+//  previously using stack for a game component.
+// Now there is one container for game, controlled with inner state, without naviagion
+
+// function GameStack() {
+//     return (
+//         <StackGame.Navigator initialRouteName="Game">
+//             <StackGame.Screen name="Game" component={StartGameScreen} options={navOptionsHandler} />
+//             <StackGame.Screen name="Play" component={PlayGameScreen} options={navOptionsHandler} />
+//             <StackGame.Screen name="GameOver" component={GameOverScreen} options={navOptionsHandler} />
+//         </StackGame.Navigator>
+//     )
+// }
 
 function TabNavigator() {
     return (
