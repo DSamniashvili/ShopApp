@@ -18,10 +18,13 @@ const HomeScreen = ({ route, navigation }) => {
                 navigation={navigation} />
             <View style={styles.container}>
                 <FlatList data={products}
-                    renderItem={itemData => <ProductItem item={itemData.item} />} />
-                <TouchableOpacity onPress={() => navigation.navigate('Home Details')}>
-                    <Text>Go to home details page</Text>
-                </TouchableOpacity>
+                    renderItem={itemData => <ProductItem
+                        item={itemData.item}
+                        onViewDetails={() => navigation.navigate('HomeDetails', {
+                            id: itemData.item.id,
+                            titleParam: itemData.item.title,
+                        })}
+                        onAddToCart={() => navigation.navigate('Notifications')} />} />
             </View>
         </SafeAreaView>
     );
