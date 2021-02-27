@@ -7,3 +7,7 @@ export const SEND_LOGIN_USER = 'SEND_LOGIN_USER';
 export const SEND_USER_LOGOUT = 'SEND_USER_LOGOUT';
 export const USER_LOG_OUT_SUCCESS = 'USER_LOG_OUT_SUCCESS';
 export const USER_LOG_OUT_FAILED = 'USER_LOG_OUT_FAILED';
+
+// cart
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
