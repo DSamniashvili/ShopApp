@@ -31,17 +31,18 @@ const ShoppingCartScreen = ({ navigation }) => {
         dispatch(removeFromCartAction(item.productId));
     }
 
-    const handleOrderNow = () => {
+    const handleOrderNow = (navigation) => {
         dispatch(addOrderAction(cartItems, cartTotal));
         dispatch(emptyCartAction());
-        // navigation.navigate('Cart');
+        navigation.navigate('Orders');
     }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <CustomHeader title={'My Shopping Cart'} isHome={false} navigation={navigation} />
             <Text>Cart Total: {cartTotal.toFixed(2)}</Text>
-            <Button title="Order now" disabled={cartItems.length === 0} onPress={handleOrderNow} />
+            <Button title="Order now" disabled={cartItems.length === 0}
+                onPress={() => handleOrderNow(navigation)} />
             <FlatList data={cartItems}
                 keyExtractor={item => item.productId}
                 renderItem={itemData => <CartItem

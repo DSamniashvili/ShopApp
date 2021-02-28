@@ -3,9 +3,18 @@ import { View, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native'
 import { IMAGE } from '../../constants/image-constants';
 import { COLORS } from '../../constants/color-constants';
 
-const CustomHeader = ({ title, navigation, isHome }) => {
+const CustomHeader = ({ title, navigation, isHome, handleGoBack }) => {
 
     const { imageStyles, containerStyles } = styles;
+
+    const handleGoBackBound = (navigation) => {
+        if (handleGoBack) {
+            handleGoBack();
+        } else {
+            navigation.goBack();
+        }
+
+    }
 
     return (
         <View style={{ flexDirection: 'row', backgroundColor: '#fff', height: 50, position: 'relative', top: 0, left: 0, width: '100%' }} >
@@ -18,7 +27,7 @@ const CustomHeader = ({ title, navigation, isHome }) => {
                                 source={IMAGE.BURGER_MENU}
                             />
                         </TouchableOpacity> :
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <TouchableOpacity onPress={() => handleGoBackBound(navigation)}>
                             <Image
                                 style={imageStyles}
                                 source={IMAGE.BACK_ICON}

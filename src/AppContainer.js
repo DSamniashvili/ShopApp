@@ -16,6 +16,7 @@ import { Item } from 'react-navigation-header-buttons';
 
 import { GameContainerScreen } from './screens/drawer/index';
 import { COLORS } from './constants/color-constants';
+import { OrdersScreen } from './screens/drawer/OrdersScreen';
 
 
 
@@ -125,6 +126,7 @@ function DrawerNavigator() {
             drawerContent={props => <CustomDrawerContent {...props} />}>
             <Drawer.Screen name="MenuTab" component={TabNavigator} />
             <Drawer.Screen name="Cart" component={ShoppingCartScreen} />
+            <Drawer.Screen name="Orders" component={OrdersScreen} />
             <Drawer.Screen name="Game" component={GameContainerScreen} />
 
         </Drawer.Navigator>

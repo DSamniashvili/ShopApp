@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from '../constants/action-constants';
+import { ADD_TO_CART, REMOVE_FROM_CART, EMPTY_CART } from '../constants/action-constants';
 import CartItem from '../models/cart-model';
 
 const initialState = {
@@ -62,7 +62,9 @@ const cart = function (state = initialState, action) {
                 items: newStateItems,
                 totalAmount: state.totalAmount - selectedCartItem.price
             }
-        // return state;
+        case EMPTY_CART: {
+            return initialState;
+        }
 
         default:
             return state;
