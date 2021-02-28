@@ -13,7 +13,7 @@ const ButtonComponent = (props) => {
     const { textStyle } = styles;
 
     return (
-        <View style={styles.buttonContainerStyle}>
+        <View style={styles.buttonContainerStyle, props.customButtonStyle}>
             <ButtonComponent
                 activeOpacity={0.8}
                 disabled={props.disabled}
@@ -23,7 +23,7 @@ const ButtonComponent = (props) => {
                     backgroundColor: props.color,
                 }}>
                     {
-                        props.icon && <Icon name={props.icon} style={textStyle} size={24} color="#fff" />
+                        props.icon && <Icon name={props.icon} style={textStyle} size={props.size || 24} color="#fff" />
                     }
                     {
                         props.name &&

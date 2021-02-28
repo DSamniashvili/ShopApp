@@ -15,3 +15,4 @@ export const EMPTY_CART = 'EMPTY_CART';
 
 // orders
 export const ADD_ORDER = 'ADD_ORDER';
+export const EMPTY_ORDERS = 'EMPTY_ORDERS';

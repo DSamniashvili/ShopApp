@@ -5,19 +5,30 @@ import { COLORS } from '../../constants/color-constants';
 import { CustomHeaderButtonsContainer } from '../generic-components/CustomHeaderButton';
 import { Card } from '../index';
 
-const OrderItem = ({ item, onViewDetails, onRemoveFromCart }) => {
+const OrderItem = ({ item, onViewOrderDetails, onRemoveFromCart }) => {
     const { id, items, totalAmount, date } = item;
 
     return (
-        <TouchableOpacity onPress={onViewDetails}>
+        <TouchableOpacity onPress={onViewOrderDetails}>
             <Card cardCustomStyle={styles.productContainer}>
                 <View style={styles.itemTitleStyle}>
-                    <Text>{title}</Text>
+                    <View style={styles.column}>
+                        <Text>Total Amount: </Text>
+                        <Text>{totalAmount}</Text>
+                    </View>
+                    <View style={styles.column}>
+                        <Text>Order Date: </Text>
+                        <Text>{date.toLocaleDateString()}</Text>
+                    </View>
                 </View>
                 <CustomHeaderButtonsContainer>
-                    <Item title="View Product" iconName="eye" onPress={onViewDetails} />
-                    <Item title="Remove Item"
-                        iconName="remove"
+                    <Item title="orders list"
+                        iconSize={24}
+                        iconName="list-ul"
+                        color={COLORS.NAVYBLUE}
+                        onPress={onViewOrderDetails} />
+                    <Item title="delete item"
+                        iconName="trash-o"
                         iconSize={24}
                         color={COLORS.RED}
                         onPress={onRemoveFromCart} />
@@ -35,8 +46,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    itemTitleStyle: {
+    column: {
         width: '50%',
+        flexDirection: 'column',
+    },
+    itemTitleStyle: {
+        width: '70%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     titleStyle: {
         fontSize: 18,

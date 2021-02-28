@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, Button } from 'react-native';
+import { View, Text, SafeAreaView, Button, Alert } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { CustomHeader } from '../../components/index';
 import CartItem from '../../components/shop/CartItem';
@@ -34,6 +34,10 @@ const ShoppingCartScreen = ({ navigation }) => {
     const handleOrderNow = (navigation) => {
         dispatch(addOrderAction(cartItems, cartTotal));
         dispatch(emptyCartAction());
+        Alert.alert('Congratulations', "Your orders have been placed", [{
+            text: 'Got it',
+            style: 'cancel',
+        }]);
         navigation.navigate('Orders');
     }
 

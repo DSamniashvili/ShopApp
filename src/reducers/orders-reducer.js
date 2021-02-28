@@ -1,4 +1,4 @@
-import { ADD_ORDER } from '../constants/action-constants';
+import { ADD_ORDER, EMPTY_ORDERS } from '../constants/action-constants';
 import CartItem from '../models/cart-model';
 import Order from '../models/order-model';
 
@@ -18,13 +18,12 @@ const orders = function (state = initialState, action) {
                 orders: state.orders.concat(newOrder),
 
             }
-            return state;
+        case EMPTY_ORDERS:
+            return initialState;
 
         default:
             return state;
     }
-
-
 };
 
 export default orders;

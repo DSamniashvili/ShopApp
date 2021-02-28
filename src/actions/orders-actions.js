@@ -1,5 +1,6 @@
 import {
-    ADD_ORDER
+    ADD_ORDER,
+    EMPTY_ORDERS,
 } from '../constants/action-constants.js';
 
 export const addOrderAction = (cartItems, totalAmount) => {
@@ -11,6 +12,15 @@ export const addOrderAction = (cartItems, totalAmount) => {
         },
     }
 }
+
+
+export const emptyOrdersAction = () => {
+    return {
+        type: EMPTY_ORDERS,
+        payload: {},
+    }
+}
+
 
 
 
