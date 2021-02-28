@@ -6,10 +6,7 @@ import { CustomHeaderButtonsContainer } from '../generic-components/CustomHeader
 import { Card } from '../index';
 
 const CartItem = ({ item, onViewDetails, onRemoveFromCart }) => {
-    console.log('ProductItem', onViewDetails);
     const { qty, title, amount } = item;
-
-    console.log('CartItem', item);
 
     return (
         <TouchableOpacity onPress={onViewDetails}>

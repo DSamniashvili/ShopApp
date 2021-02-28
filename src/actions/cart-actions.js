@@ -1,6 +1,7 @@
 import {
     REMOVE_FROM_CART,
-    ADD_TO_CART
+    ADD_TO_CART,
+    EMPTY_CART,
 } from '../constants/action-constants.js';
 
 export const addToCartAction = (product) => {
@@ -21,3 +22,10 @@ export const removeFromCartAction = (productId) => {
     }
 }
 
+
+export const emptyCartAction = () => {
+    return {
+        type: EMPTY_CART,
+        payload: {},
+    }
+}

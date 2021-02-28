@@ -4,7 +4,8 @@ import { FlatList } from 'react-native-gesture-handler';
 import { CustomHeader } from '../../components/index';
 import CartItem from '../../components/shop/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeFromCartAction } from '../../actions/cart-actions';
+import { removeFromCartAction, emptyCartAction } from '../../actions/cart-actions';
+import { addOrderAction } from '../../actions/orders-actions';
 
 const ShoppingCartScreen = ({ navigation }) => {
 
@@ -30,11 +31,17 @@ const ShoppingCartScreen = ({ navigation }) => {
         dispatch(removeFromCartAction(item.productId));
     }
 
+    const handleOrderNow = () => {
+        dispatch(addOrderAction(cartItems, cartTotal));
+        dispatch(emptyCartAction());
+        // navigation.navigate('Cart');
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <CustomHeader title={'My Shopping Cart'} isHome={false} navigation={navigation} />
             <Text>Cart Total: {cartTotal.toFixed(2)}</Text>
-            <Button title="Order now" disabled={cartItems.length === 0} onPress={() => console.warn('Order now', cartItems.length)} />
+            <Button title="Order now" disabled={cartItems.length === 0} onPress={handleOrderNow} />
             <FlatList data={cartItems}
                 keyExtractor={item => item.productId}
                 renderItem={itemData => <CartItem
