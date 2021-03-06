@@ -35,6 +35,10 @@ const CustomDrawerContent = ({ navigation }) => {
                     <Text>Orders</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => navigation.navigate('Admin')} style={{ marginTop: 20 }}>
+                    <Text>Admin</Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={() => navigation.navigate('Game')} style={{ marginTop: 20 }}>
                     <Text>Game</Text>
                 </TouchableOpacity>

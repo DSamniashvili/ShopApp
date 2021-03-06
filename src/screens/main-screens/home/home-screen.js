@@ -30,6 +30,7 @@ const HomeScreen = ({ route, navigation }) => {
                 <FlatList data={products}
                     keyExtractor={item => item.id}
                     renderItem={itemData => <ProductItem
+                        isOwn={false}
                         item={itemData.item}
                         onViewDetails={() => navigation.navigate('HomeDetails', {
                             id: itemData.item.id,

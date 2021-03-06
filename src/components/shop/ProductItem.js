@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity, Dimensions } from 'react-native';
 import { Card } from '../index';
 
-const ProductItem = ({ item, onViewDetails, onAddToCart }) => {
-    console.log('ProductItem', onViewDetails);
+const ProductItem = ({ isOwn, item, onViewDetails, onAddToCart }) => {
     const { title, price, imageUrl } = item;
 
     return (
@@ -12,10 +11,15 @@ const ProductItem = ({ item, onViewDetails, onAddToCart }) => {
                 <Image style={styles.image} source={{ uri: imageUrl }} />
                 <Text style={styles.titleStyle}>{title}</Text>
                 <Text style={styles.priceStyle}>${price.toFixed(2)}</Text>
-                <View style={styles.actionsStyle}>
-                    <Button title="View Details" onPress={onViewDetails} />
-                    <Button title="To Cart" onPress={onAddToCart} />
-                </View>
+                {
+                    !isOwn ?
+                        <View style={styles.actionsStyle}>
+                            <Button title="View Details" onPress={onViewDetails} />
+                            <Button title="To Cart" onPress={onAddToCart || null} />
+                        </View> :
+                        null
+                }
+
             </Card>
         </TouchableOpacity>
     )

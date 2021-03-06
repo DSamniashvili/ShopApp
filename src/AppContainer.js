@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { LoginScreen, RegistrationScreen } from './screens/stack-screens/index';
 import { HomeScreen, HomeDetailsScreen, SettingsScreen, SettingsDetailsScreen } from './screens/main-screens/index';
-import { ShoppingCartScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen } from './screens/drawer/index';
+import { ShoppingCartScreen, UserProductScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen } from './screens/drawer/index';
 import { CustomDrawerContent, CustomHeaderButtonsContainer, LogoTitle } from './components/index';
 import { Item } from 'react-navigation-header-buttons';
 
@@ -127,6 +127,7 @@ function DrawerNavigator() {
             <Drawer.Screen name="MenuTab" component={TabNavigator} />
             <Drawer.Screen name="Cart" component={ShoppingCartScreen} />
             <Drawer.Screen name="Orders" component={OrdersScreen} />
+            <Drawer.Screen name="Admin" component={UserProductScreen} />
             <Drawer.Screen name="Game" component={GameContainerScreen} />
 
         </Drawer.Navigator>
