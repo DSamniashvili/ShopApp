@@ -4,7 +4,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { ButtonComponent, CustomHeader, CustomHeaderButtonsContainer } from '../../components/index';
 import CartItem from '../../components/shop/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { emptyOrdersAction } from '../../actions/orders-actions';
+import { emptyOrdersAction, handleEDeleteOrder } from '../../actions/orders-actions';
 import { addOrderAction } from '../../actions/orders-actions';
 import OrderItem from '../../components/shop/OrderItem';
 import OrderDetailItem from '../../components/shop/OrderDetailItem';
@@ -31,6 +31,10 @@ const OrdersScreen = ({ navigation }) => {
     const handleViewOrderDetails = (item) => {
         setModalOpen(true);
         setItemContent(item ? item.items : []);
+    }
+
+    const handleDeleteOrder = (itemId) => {
+        dispatch(handleEDeleteOrder(itemId));
     }
 
 
@@ -67,6 +71,15 @@ const OrdersScreen = ({ navigation }) => {
             </Modal >
     }
 
+    const renderItem = ({ item }) => (
+        <OrderItem
+            item={item}
+            totalAmount={item.totalAmountFixedSize}
+            readableDate={item.readableDate}
+            onViewOrderDetails={() => handleViewOrderDetails(item)}
+            onDeleteOrder={() => handleDeleteOrder(item.id)} />
+    )
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <CustomHeader title={'Orders'}
@@ -76,8 +89,7 @@ const OrdersScreen = ({ navigation }) => {
             <Button title="Empty orders" disabled={orders.length === 0 || modalOpen} onPress={() => handleEmptyOrders(navigation)} />
             <FlatList data={orders}
                 keyExtractor={item => item.id}
-                renderItem={itemData => <OrderItem item={itemData.item}
-                    onViewOrderDetails={() => handleViewOrderDetails(itemData.item)} />} />
+                renderItem={renderItem} />
             {
                 modalOpen ?
                     <View style={{

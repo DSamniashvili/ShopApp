@@ -5,8 +5,7 @@ import { COLORS } from '../../constants/color-constants';
 import { CustomHeaderButtonsContainer } from '../generic-components/CustomHeaderButton';
 import { Card } from '../index';
 
-const OrderItem = ({ item, onViewOrderDetails, onRemoveFromCart }) => {
-    const { id, items, totalAmount, date } = item;
+const OrderItem = ({ totalAmount, readableDate, onViewOrderDetails, onDeleteOrder }) => {
 
     return (
         <TouchableOpacity onPress={onViewOrderDetails}>
@@ -18,7 +17,7 @@ const OrderItem = ({ item, onViewOrderDetails, onRemoveFromCart }) => {
                     </View>
                     <View style={styles.column}>
                         <Text>Order Date: </Text>
-                        <Text>{date.toLocaleDateString()}</Text>
+                        <Text>{readableDate}</Text>
                     </View>
                 </View>
                 <CustomHeaderButtonsContainer>
@@ -31,7 +30,7 @@ const OrderItem = ({ item, onViewOrderDetails, onRemoveFromCart }) => {
                         iconName="trash-o"
                         iconSize={24}
                         color={COLORS.RED}
-                        onPress={onRemoveFromCart} />
+                        onPress={onDeleteOrder} />
                 </CustomHeaderButtonsContainer>
             </Card>
         </TouchableOpacity>
