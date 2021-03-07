@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { View, Text } from 'react-native';
 
 function EditProductScreen() {
     return (
-        <div>
-
-        </div>
+        <View>
+            <Text>Edit product screen</Text>
+        </View>
     )
 }
 

@@ -2,14 +2,21 @@ import React from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
 import { ButtonComponent, CustomHeader } from '../../../components/index';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { COLORS } from '../../../constants/color-constants';
+import { addToCartAction } from '../../../actions/cart-actions';
 
 const HomeDetailsScreen = ({ route, navigation }) => {
     const { titleParam, id } = route.params;
     const item = useSelector(state => state.products.availableProducts.find(item => item.id === id));
 
     const { title, price, imageUrl, description, ownerId } = item;
+
+    const dispatch = useDispatch();
+
+    const handleAddToCart = (item) => {
+        dispatch(addToCartAction(item));
+    }
 
     return (
         <ScrollView>
@@ -18,7 +25,7 @@ const HomeDetailsScreen = ({ route, navigation }) => {
                 <View style={styles.containerStyle}>
                     <Image style={styles.image} source={{ uri: imageUrl }} />
                     <View style={styles.contentContainerStyle}>
-                        <ButtonComponent color={COLORS.DEFAULT} name="Add to cart" onPress={() => navigation.navigate('Notifications')} />
+                        <ButtonComponent color={COLORS.DEFAULT} name="Add to cart" onPress={() => handleAddToCart(item)} />
                         <View style={styles.titleAndDescContainer}>
                             <Text style={styles.textStyle, styles.heading2Style}>{title}</Text>
                             <Text style={styles.textStyle}>${price}</Text>
