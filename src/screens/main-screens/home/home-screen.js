@@ -18,6 +18,13 @@ const HomeScreen = ({ route, navigation }) => {
         dispatch(addToCartAction(item));
     }
 
+    const handleViewDetails = (navigation, item) => {
+        navigation.navigate('HomeDetails', {
+            id: item.id,
+            titleParam: item.title,
+        });
+    }
+
     // removed CustomHeader since home screen implements react-native default navigation with the help of react-navigation-custom-buttons
     // <CustomHeader
     // title={'Home'}
@@ -32,10 +39,11 @@ const HomeScreen = ({ route, navigation }) => {
                     renderItem={itemData => <ProductItem
                         isOwn={false}
                         item={itemData.item}
-                        onViewDetails={() => navigation.navigate('HomeDetails', {
-                            id: itemData.item.id,
-                            titleParam: itemData.item.title,
-                        })}
+                        // onViewDetails={() => navigation.navigate('HomeDetails', {
+                        //     id: itemData.item.id,
+                        //     titleParam: itemData.item.title,
+                        // })}
+                        onViewDetails={() => handleViewDetails(navigation, itemData.item)}
                         onAddToCart={() => handleAddToCart(itemData.item)} />} />
             </View>
         </SafeAreaView>

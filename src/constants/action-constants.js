@@ -20,3 +20,4 @@ export const DELETE_ORDER = 'DELETE_ORDER';
 
 // propduct
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const EDIT_PRODUCT = 'EDIT_PRODUCT';

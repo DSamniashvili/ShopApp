@@ -18,10 +18,21 @@ const HomeDetailsScreen = ({ route, navigation }) => {
         dispatch(addToCartAction(item));
     }
 
+    const handleGoToEdit = (navigation) => {
+        navigation.navigate('EditProduct', {
+            id: item.id,
+        });
+    }
+
     return (
         <ScrollView>
             <SafeAreaView style={{ flex: 1 }}>
-                <CustomHeader title={`${titleParam} details`} isHome={false} navigation={navigation} />
+                <CustomHeader
+                    title={`${titleParam} details`}
+                    isHome={false}
+                    navigation={navigation}
+                    enableEditButton={true}
+                    handleGoToEdit={() => handleGoToEdit(navigation)} />
                 <View style={styles.containerStyle}>
                     <Image style={styles.image} source={{ uri: imageUrl }} />
                     <View style={styles.contentContainerStyle}>

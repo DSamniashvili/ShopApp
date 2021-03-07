@@ -14,14 +14,17 @@ const UserProductScreen = ({ navigation }) => {
         dispatch(deleteProductAction(productId))
     }
 
+    const handleGoToEdit = (navigation, item) => {
+        navigation.navigate('EditProduct', {
+            id: item.id,
+        });
+    }
+
     const renderItem = ({ item }) => (
         <ProductItem
             isOwn={true}
             item={item}
-            onViewDetails={() => navigation.navigate('HomeDetails', {
-                id: item.id,
-                titleParam: item.title,
-            })}
+            onEditProduct={() => handleGoToEdit(navigation, item)}
             onDeleteProduct={() => handleDeleteProduct(item.id)} />
     )
 

@@ -1,10 +1,16 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
 
-function EditProductScreen() {
+const EditProductScreen = ({ route, navigation }) => {
+    const { id } = route.params;
+    const item = useSelector(state => state.products.availableProducts.find(item => item.id === id));
+
+    const { title, price, imageUrl, description, ownerId } = item;
+
     return (
         <View>
-            <Text>Edit product screen</Text>
+            <Text>{title}</Text>
         </View>
     )
 }

@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { LoginScreen, RegistrationScreen } from './screens/stack-screens/index';
 import { HomeScreen, HomeDetailsScreen, SettingsScreen, SettingsDetailsScreen } from './screens/main-screens/index';
-import { ShoppingCartScreen, UserProductScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen } from './screens/drawer/index';
+import { ShoppingCartScreen, UserProductScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen, EditProductScreen } from './screens/drawer/index';
 import { CustomDrawerContent, CustomHeaderButtonsContainer, LogoTitle } from './components/index';
 import { Item } from 'react-navigation-header-buttons';
 
@@ -64,6 +64,7 @@ function HomeStack() {
         <StackHome.Navigator initialRouteName="Home">
             <StackHome.Screen name="Home" component={HomeScreen} options={homeHeaderOptionsHandler} />
             <StackHome.Screen name="HomeDetails" component={HomeDetailsScreen} options={navOptionsHandler} />
+            <StackHome.Screen name="EditProduct" component={EditProductScreen} options={navOptionsHandler} />
         </StackHome.Navigator>
     )
 }
