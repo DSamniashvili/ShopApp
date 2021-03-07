@@ -17,3 +17,6 @@ export const EMPTY_CART = 'EMPTY_CART';
 export const ADD_ORDER = 'ADD_ORDER';
 export const EMPTY_ORDERS = 'EMPTY_ORDERS';
 export const DELETE_ORDER = 'DELETE_ORDER';
+
+// propduct
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';

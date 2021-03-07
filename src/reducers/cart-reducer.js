@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, EMPTY_CART } from '../constants/action-constants';
+import { ADD_TO_CART, REMOVE_FROM_CART, EMPTY_CART, DELETE_PRODUCT } from '../constants/action-constants';
 import CartItem from '../models/cart-model';
 
 const initialState = {
@@ -65,6 +65,22 @@ const cart = function (state = initialState, action) {
         case EMPTY_CART: {
             return initialState;
         }
+        case DELETE_PRODUCT:
+
+            const { itemId } = action.payload;
+            const cartItemToBeRemoved = state.items[itemId];
+
+            if (!state.items[itemId]) {
+                return state;
+            }
+
+            return {
+                ...state,
+                items: Object.keys(state.items).filter(productId => {
+                    return productId !== itemId
+                }),
+                totalAmount: state.totalAmount - cartItemToBeRemoved.sum,
+            }
 
         default:
             return state;
