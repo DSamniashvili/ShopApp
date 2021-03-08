@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, Image, SafeAreaView, Button } from 'react
 import { IMAGE } from '../../constants/image-constants';
 import { COLORS } from '../../constants/color-constants';
 import { useDispatch } from 'react-redux';
+import { CustomHeaderButtonsContainer } from './CustomHeaderButton';
+import { Item } from 'react-navigation-header-buttons';
 
 const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, handleGoBack, handleGoToEdit }) => {
     const dispatch = useDispatch();
@@ -16,13 +18,6 @@ const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, han
             navigation.goBack();
         }
     }
-
-    // const handleGoToEditBound = (navigation) => {
-    //     if (handleGoToEdit) {
-    //         handleGoToEdit();
-    //     }
-    //     // dispatch(onEditProductAction(item));
-    // }
 
     return (
         <View style={{ flexDirection: 'row', backgroundColor: '#fff', height: 50, position: 'relative', top: 0, left: 0, width: '100%' }} >
@@ -47,12 +42,13 @@ const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, han
             <View style={{ flex: 1.5, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} >
                 <Text>{title}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }} >
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end' }} >
                 {
                     enableEditButton ?
-                        <TouchableOpacity onPress={handleGoToEdit}>
-                            <Text>Edit</Text>
-                        </TouchableOpacity> :
+                        <CustomHeaderButtonsContainer>
+                            <Item title="Add" iconName="edit" onPress={handleGoToEdit} iconSize={24}
+                                color={COLORS.RED} />
+                        </CustomHeaderButtonsContainer> :
                         null
                 }
 

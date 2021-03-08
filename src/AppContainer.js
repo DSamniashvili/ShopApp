@@ -78,6 +78,15 @@ function SettingsStack() {
     )
 }
 
+function UserProductStack() {
+    return (
+        <StackSettings.Navigator initialRouteName="Admin">
+            <StackSettings.Screen name="Admin" component={UserProductScreen} options={navOptionsHandler} />
+            <StackSettings.Screen name="EditProduct" component={EditProductScreen} options={navOptionsHandler} />
+        </StackSettings.Navigator>
+    )
+}
+
 
 //  previously using stack for a game component.
 // Now there is one container for game, controlled with inner state, without naviagion
@@ -128,7 +137,7 @@ function DrawerNavigator() {
             <Drawer.Screen name="MenuTab" component={TabNavigator} />
             <Drawer.Screen name="Cart" component={ShoppingCartScreen} />
             <Drawer.Screen name="Orders" component={OrdersScreen} />
-            <Drawer.Screen name="Admin" component={UserProductScreen} />
+            <Drawer.Screen name="Admin" component={UserProductStack} />
             <Drawer.Screen name="Game" component={GameContainerScreen} />
 
         </Drawer.Navigator>

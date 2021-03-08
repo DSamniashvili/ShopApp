@@ -6,7 +6,7 @@ const ProductItem = ({ isOwn, item, onViewDetails, onAddToCart, onEditProduct, o
     const { title, price, imageUrl } = item;
 
     return (
-        <TouchableOpacity onPress={onViewDetails}>
+        <TouchableOpacity onPress={onEditProduct}>
             <Card cardCustomStyle={styles.productContainer}>
                 <Image style={styles.image} source={{ uri: imageUrl }} />
                 <Text style={styles.titleStyle}>{title}</Text>

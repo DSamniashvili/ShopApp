@@ -16,7 +16,7 @@ const UserProductScreen = ({ navigation }) => {
 
     const handleGoToEdit = (navigation, item) => {
         navigation.navigate('EditProduct', {
-            id: item.id,
+            id: item ? item.id : null,
         });
     }
 
@@ -30,7 +30,12 @@ const UserProductScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView>
-            <CustomHeader title={'My own products'} isHome={false} navigation={navigation} />
+            <CustomHeader
+                enableEditButton={true}
+                handleGoToEdit={() => handleGoToEdit(navigation)}
+                title={'My own products'}
+                isHome={false}
+                navigation={navigation} />
 
             {
                 myProducts && myProducts.length > 0 ?
