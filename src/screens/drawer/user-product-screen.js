@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, SafeAreaView, Text } from 'react-native';
+import { Alert, FlatList, SafeAreaView, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteProductAction } from '../../actions/product-actions';
 import { CustomHeader } from '../../components';
@@ -25,8 +25,24 @@ const UserProductScreen = ({ navigation }) => {
             isOwn={true}
             item={item}
             onEditProduct={() => handleGoToEdit(navigation, item)}
-            onDeleteProduct={() => handleDeleteProduct(item.id)} />
+            onDeleteProduct={() => deleteHandler(item.id)} />
     )
+
+
+    const deleteHandler = (itemId) => {
+        Alert.alert('Are you sure?', "Do you want to delete this item?", [
+            {
+                text: 'No',
+                style: 'default',
+            },
+            {
+                text: 'Yes',
+                style: 'destructive',
+                onPress: () => handleDeleteProduct(itemId),
+            },
+        ]);
+        // navigation.navigate('Orders');
+    }
 
     return (
         <SafeAreaView>

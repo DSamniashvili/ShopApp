@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import { View, Text, SafeAreaView, TextInput, StyleSheet, Button } from 'react-native';
+import { View, Text, SafeAreaView, TextInput, StyleSheet, Button, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { createProductAction, updateProductAction } from '../../actions/product-actions';
 import { CustomHeader } from '../../components';
@@ -23,6 +23,9 @@ const EditProductScreen = ({ route, navigation }) => {
         } else {
             dispatch(updateProductAction(id, title, +price, imageUrl, description));
         }
+
+        navigation.goBack();
+
     }, [dispatch, id, title, price, imageUrl, description]);
 
     const MemorizedHeader = useMemo(() =>
