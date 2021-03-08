@@ -7,6 +7,7 @@ const IMAGE = {
     SETTINGS_ICON: require('../assets/images/settings.png'),
     SETTINGS_NOFILL: require('../assets/images/settings-nofill.png'),
     GAME_BG: require('../assets/images/game_bg.jpg'),
+    NO_IMAGE: require('../assets/images/noImage.png'),
 }
 
 export { IMAGE };

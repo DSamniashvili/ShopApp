@@ -1,9 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { View, Text, SafeAreaView, TextInput, StyleSheet, Button } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { createProductAction, updateProductAction } from '../../actions/product-actions';
 import { CustomHeader } from '../../components';
 
+
 const EditProductScreen = ({ route, navigation }) => {
+
+    const dispatch = useDispatch();
+
     const { id } = route.params;
     let itemToBeEdited = useSelector(state => state.products.availableProducts.find(item => item.id === id));
 
@@ -12,17 +17,45 @@ const EditProductScreen = ({ route, navigation }) => {
     const [imageUrl, setImageUrl] = useState(itemToBeEdited ? itemToBeEdited.imageUrl : '');
     const [description, setDescription] = useState(itemToBeEdited ? itemToBeEdited.description : '');
 
-    const handleSubmit = () => {
-        console.log('handleSubmit', titleEl.current.value);
-    }
+    const submitHandler = useCallback(() => {
+        if (!itemToBeEdited) {
+            dispatch(createProductAction(title, +price, imageUrl, description));
+        } else {
+            dispatch(updateProductAction(id, title, +price, imageUrl, description));
+        }
+    }, [dispatch, id, title, price, imageUrl, description]);
+
+    const MemorizedHeader = useMemo(() =>
+        <CustomHeader
+            title={itemToBeEdited ? `Edit ${itemToBeEdited.title}` : 'Add a new item'}
+            isHome={false}
+            navigation={navigation}
+            handleHeaderBtnPress={submitHandler}
+            headerBtnType={'check'}
+            enableEditButton={true} />, [dispatch, id, title, price, imageUrl, description]
+    )
+
+    // const itemInputs = [
+    //     'title',
+    //     'price',
+    //     'imageUrl',
+    //     'description',
+    // ]
+
+    // const memorizedList = useMemo(() =>
+    //     itemInputs.map((type, index) => {
+    //         return <TextInput
+    //             style={styles.textInputStyle}
+    //             value={type}
+    //             key={index}
+    //             ref={`${type}El`}
+    //             placeholder={type} />
+    //     }), [])
 
 
     return (
         <SafeAreaView>
-            <CustomHeader
-                title={itemToBeEdited ? `Edit ${itemToBeEdited.title}` : 'Add a new item'}
-                isHome={false}
-                navigation={navigation} />
+            {MemorizedHeader}
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.textInputStyle}
@@ -57,9 +90,7 @@ const EditProductScreen = ({ route, navigation }) => {
                     // })
                 }
             </View>
-            <View style={styles.submitContainer}>
-                <Button title="submit" onPress={handleSubmit} />
-            </View>
+
         </SafeAreaView>
     )
 }

@@ -32,7 +32,9 @@ const UserProductScreen = ({ navigation }) => {
         <SafeAreaView>
             <CustomHeader
                 enableEditButton={true}
-                handleGoToEdit={() => handleGoToEdit(navigation)}
+                enableAddButton={true}
+                headerBtnType={'edit'}
+                handleHeaderBtnPress={() => handleGoToEdit(navigation)}
                 title={'My own products'}
                 isHome={false}
                 navigation={navigation} />

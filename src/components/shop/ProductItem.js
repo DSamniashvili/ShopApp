@@ -1,16 +1,23 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { IMAGE } from '../../constants/image-constants';
 import { Card } from '../index';
 
 const ProductItem = ({ isOwn, item, onViewDetails, onAddToCart, onEditProduct, onDeleteProduct }) => {
     const { title, price, imageUrl } = item;
 
+
     return (
-        <TouchableOpacity onPress={onEditProduct}>
+        <TouchableOpacity onPress={isOwn ? onEditProduct : onViewDetails}>
             <Card cardCustomStyle={styles.productContainer}>
-                <Image style={styles.image} source={{ uri: imageUrl }} />
+                {
+                    // <Image style={styles.image} source={{ uri: imageUrl ? imageUrl : IMAGE.NO_IMAGE }} />
+                    imageUrl && imageUrl.length > 0 ?
+                        <Image style={styles.image} source={{ uri: imageUrl }} /> :
+                        <Image style={styles.image} source={{ uri: 'https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg' }} />
+                }
                 <Text style={styles.titleStyle}>{title}</Text>
-                <Text style={styles.priceStyle}>${price.toFixed(2)}</Text>
+                <Text style={styles.priceStyle}>${Number(price).toFixed(2)}</Text>
                 {
                     !isOwn ?
                         <View style={styles.actionsStyle}>

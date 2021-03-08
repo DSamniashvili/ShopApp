@@ -18,6 +18,7 @@ export const ADD_ORDER = 'ADD_ORDER';
 export const EMPTY_ORDERS = 'EMPTY_ORDERS';
 export const DELETE_ORDER = 'DELETE_ORDER';
 
-// propduct
+// product
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
-export const EDIT_PRODUCT = 'EDIT_PRODUCT';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+export const CREATE_PRODUCT = 'CREATE_PRODUCT';

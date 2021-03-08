@@ -6,8 +6,7 @@ import { useDispatch } from 'react-redux';
 import { CustomHeaderButtonsContainer } from './CustomHeaderButton';
 import { Item } from 'react-navigation-header-buttons';
 
-const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, handleGoBack, handleGoToEdit }) => {
-    const dispatch = useDispatch();
+const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, handleGoBack, handleHeaderBtnPress, headerBtnType }) => {
 
     const { imageStyles, containerStyles } = styles;
 
@@ -18,6 +17,8 @@ const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, han
             navigation.goBack();
         }
     }
+
+    console.log('headerBtnType', headerBtnType);
 
     return (
         <View style={{ flexDirection: 'row', backgroundColor: '#fff', height: 50, position: 'relative', top: 0, left: 0, width: '100%' }} >
@@ -46,7 +47,9 @@ const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, han
                 {
                     enableEditButton ?
                         <CustomHeaderButtonsContainer>
-                            <Item title="Add" iconName="edit" onPress={handleGoToEdit} iconSize={24}
+                            <Item title="Add" iconName={headerBtnType}
+                                onPress={handleHeaderBtnPress}
+                                iconSize={24}
                                 color={COLORS.RED} />
                         </CustomHeaderButtonsContainer> :
                         null
