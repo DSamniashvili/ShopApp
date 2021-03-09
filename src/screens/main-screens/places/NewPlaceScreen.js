@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TextInput, Button, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addPlaceAction } from '../../../actions/place-actions';
 import { COLORS } from '../../../constants/color-constants';
 
 
-const NewPlaceScreen = () => {
+const NewPlaceScreen = ({ route, navigation }) => {
     const [title, setTitle] = useState();
+    const dispatch = useDispatch();
 
     const textChangeHandler = text => {
         setTitle(text);
     }
 
     const savePlaceHandler = () => {
-        console.log('savePlaceHandler');
+        dispatch(addPlaceAction(title));
+        navigation.goBack();
     }
 
     return (

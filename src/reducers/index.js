@@ -4,6 +4,7 @@ import user from './user-reducer';
 import products from './product-reducer';
 import cart from './cart-reducer';
 import orders from './orders-reducer';
+import places from './place-reducer';
 
 export default combineReducers({
     albums,
@@ -11,4 +12,5 @@ export default combineReducers({
     products,
     cart,
     orders,
+    places,
 });
