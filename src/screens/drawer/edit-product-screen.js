@@ -38,6 +38,9 @@ const EditProductScreen = ({ route, navigation }) => {
             enableEditButton={true} />, [dispatch, id, title, price, imageUrl, description]
     )
 
+    const titleRef = useRef();
+    const priceRef = useRef();
+
     // const itemInputs = [
     //     'title',
     //     'price',
@@ -55,6 +58,10 @@ const EditProductScreen = ({ route, navigation }) => {
     //             placeholder={type} />
     //     }), [])
 
+    const setFocus = () => {
+        priceRef.current.focus();
+    }
+
 
     return (
         <SafeAreaView>
@@ -64,11 +71,19 @@ const EditProductScreen = ({ route, navigation }) => {
                     style={styles.textInputStyle}
                     value={title}
                     onChangeText={text => setTitle(text)}
+                    keyboardType={'default'}
+                    autoCapitalize='sentences'
+                    autoCorrect
+                    ref={titleRef}
+                    returnKeyType='next'
+                    onEndEditing={() => console.log('finished editing')}
+                    onSubmitEditing={setFocus}
                     placeholder={'title'} />
                 <TextInput
                     style={styles.textInputStyle}
                     value={price.toString()}
-                    keyboardType={'number-pad'}
+                    keyboardType={'decimal-pad'}
+                    ref={priceRef}
                     onChangeText={text => setPrice(text)}
                     placeholder={'price'} />
                 <TextInput
