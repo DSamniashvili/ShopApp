@@ -9,8 +9,26 @@ import { IMAGE } from './constants/image-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { LoginScreen, RegistrationScreen } from './screens/stack-screens/index';
-import { HomeScreen, HomeDetailsScreen, SettingsScreen, SettingsDetailsScreen } from './screens/main-screens/index';
-import { ShoppingCartScreen, UserProductScreen, ProfileScreen, StartGameScreen, PlayGameScreen, GameOverScreen, EditProductScreen } from './screens/drawer/index';
+import {
+    HomeScreen,
+    HomeDetailsScreen,
+    SettingsScreen,
+    SettingsDetailsScreen,
+    MapScreen,
+    NewPlaceScreen,
+    PlaceDetailScreen,
+    PlacesListScreen,
+} from './screens/main-screens/index';
+import {
+    ShoppingCartScreen,
+    UserProductScreen,
+    ProfileScreen,
+    StartGameScreen,
+    PlayGameScreen,
+    GameOverScreen,
+    EditProductScreen,
+
+} from './screens/drawer/index';
 import { CustomDrawerContent, CustomHeaderButtonsContainer, LogoTitle } from './components/index';
 import { Item } from 'react-navigation-header-buttons';
 
@@ -25,6 +43,8 @@ const Stack = createStackNavigator();
 const StackHome = createStackNavigator();
 const StackSettings = createStackNavigator();
 const StackGame = createStackNavigator();
+const StackUserProduct = createStackNavigator();
+const StackPlaces = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -80,12 +100,26 @@ function SettingsStack() {
 
 function UserProductStack() {
     return (
-        <StackSettings.Navigator initialRouteName="Admin">
-            <StackSettings.Screen name="Admin" component={UserProductScreen} options={navOptionsHandler} />
-            <StackSettings.Screen name="EditProduct" component={EditProductScreen} options={navOptionsHandler} />
-        </StackSettings.Navigator>
+        <StackUserProduct.Navigator initialRouteName="Admin">
+            <StackUserProduct.Screen name="Admin" component={UserProductScreen} options={navOptionsHandler} />
+            <StackUserProduct.Screen name="EditProduct" component={EditProductScreen} options={navOptionsHandler} />
+        </StackUserProduct.Navigator>
     )
 }
+
+
+function PlacesStack() {
+    return (
+        <StackPlaces.Navigator initialRouteName="PlacesList">
+            <StackPlaces.Screen name="PlacesList" component={PlacesListScreen} options={navOptionsHandler} />
+            <StackPlaces.Screen name="PlaceDetails" component={PlaceDetailScreen} options={navOptionsHandler} />
+            <StackPlaces.Screen name="NewPlace" component={NewPlaceScreen} options={navOptionsHandler} />
+            <StackPlaces.Screen name="Map" component={MapScreen} options={navOptionsHandler} />
+        </StackPlaces.Navigator>
+    )
+}
+
+
 
 
 //  previously using stack for a game component.
@@ -112,6 +146,8 @@ function TabNavigator() {
                         iconName = focused
                             ? IMAGE.HOME_ICON
                             : IMAGE.HOME_NOFILL;
+                    } else if (route.name === 'Places') {
+                        iconName = focused ? IMAGE.SETTINGS_ICON : IMAGE.SETTINGS_NOFILL;
                     } else if (route.name === 'Settings') {
                         iconName = focused ? IMAGE.SETTINGS_ICON : IMAGE.SETTINGS_NOFILL;
                     }
@@ -125,6 +161,7 @@ function TabNavigator() {
             }}
         >
             <Tab.Screen name="Home" component={HomeStack} />
+            <Tab.Screen name="Places" component={PlacesStack} />
             <Tab.Screen name="Settings" component={SettingsStack} />
         </Tab.Navigator>
     )
@@ -139,7 +176,6 @@ function DrawerNavigator() {
             <Drawer.Screen name="Orders" component={OrdersScreen} />
             <Drawer.Screen name="Admin" component={UserProductStack} />
             <Drawer.Screen name="Game" component={GameContainerScreen} />
-
         </Drawer.Navigator>
     )
 }
