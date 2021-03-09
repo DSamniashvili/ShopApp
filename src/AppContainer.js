@@ -79,6 +79,21 @@ const homeHeaderOptionsHandler = ({ navigation }) => ({
     ),
 });
 
+
+const placesHeaderOptionsHandler = ({ navigation }) => ({
+    headerTitle: props => <LogoTitle width={30} height={30} {...props} />,
+    headerRight: () => (
+        <CustomHeaderButtonsContainer>
+            <Item title="plus"
+                iconName="plus"
+                iconSize={24}
+                color={COLORS.NAVYBLUE}
+                onPress={() => navigation.navigate('NewPlace')} />
+        </CustomHeaderButtonsContainer>
+    ),
+});
+
+
 function HomeStack() {
     return (
         <StackHome.Navigator initialRouteName="Home">
@@ -111,10 +126,10 @@ function UserProductStack() {
 function PlacesStack() {
     return (
         <StackPlaces.Navigator initialRouteName="PlacesList">
-            <StackPlaces.Screen name="PlacesList" component={PlacesListScreen} options={navOptionsHandler} />
-            <StackPlaces.Screen name="PlaceDetails" component={PlaceDetailScreen} options={navOptionsHandler} />
-            <StackPlaces.Screen name="NewPlace" component={NewPlaceScreen} options={navOptionsHandler} />
-            <StackPlaces.Screen name="Map" component={MapScreen} options={navOptionsHandler} />
+            <StackPlaces.Screen name="PlacesList" component={PlacesListScreen} options={placesHeaderOptionsHandler} />
+            <StackPlaces.Screen name="PlaceDetails" component={PlaceDetailScreen} />
+            <StackPlaces.Screen name="NewPlace" component={NewPlaceScreen} />
+            <StackPlaces.Screen name="Map" component={MapScreen} />
         </StackPlaces.Navigator>
     )
 }
