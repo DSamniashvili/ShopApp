@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, ActivityIndicator, Button } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, ActivityIndicator, Button, RefreshControl } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { CustomHeader, Loader } from '../../../components/index';
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,7 @@ const HomeScreen = ({ route, navigation }) => {
     const products = useSelector(state => state.products.availableProducts);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const [error, setError] = useState('');
 
     const handleAddToCart = (item) => {
@@ -28,13 +29,13 @@ const HomeScreen = ({ route, navigation }) => {
 
     const loadProducts = useCallback(async () => {
         setError('');
-        setIsLoading(true);
+        setIsRefreshing(true);
         try {
             await dispatch(fetchProducts());
         } catch (error) {
             setError(error.message);
         }
-        setIsLoading(false);
+        setIsRefreshing(false);
     }, [dispatch, setIsLoading, setError]);
 
     // when changing screens from drawer navigation, view does not get re-rendered. it is saved in memory.
@@ -50,8 +51,11 @@ const HomeScreen = ({ route, navigation }) => {
 
 
     useEffect(() => {
-        loadProducts();
-    }, [loadProducts]);
+        setIsLoading(true);
+        loadProducts().then(() => {
+            setIsLoading(false);
+        });
+    }, [dispatch, loadProducts]);
 
 
     // removed CustomHeader since home screen implements react-native default navigation 
@@ -86,7 +90,14 @@ const HomeScreen = ({ route, navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
                 {
-                    <FlatList data={products}
+                    <FlatList
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={isRefreshing}
+                                onRefresh={loadProducts}
+                            />
+                        }
+                        data={products}
                         keyExtractor={item => item.id}
                         renderItem={itemData => <ProductItem
                             isOwn={false}
