@@ -1,4 +1,4 @@
-import { DELETE_PRODUCT, UPDATE_PRODUCT, CREATE_PRODUCT } from '../constants/action-constants';
+import { DELETE_PRODUCT, UPDATE_PRODUCT, CREATE_PRODUCT, SET_PRODUCTS } from '../constants/action-constants';
 
 import PRODUCTS from '../data/dummy-data';
 import Product from '../models/product-model';
@@ -10,12 +10,19 @@ const initialState = {
 
 const products = function (state = initialState, action) {
     switch (action.type) {
-
+        case SET_PRODUCTS:
+            // replace dummy data from an actual result from the server
+            const { loadedProducts } = action.payload;
+            return {
+                ...state,
+                availableProducts: loadedProducts,
+                myProducts: loadedProducts,
+            }
         case CREATE_PRODUCT:
-            let { title, price, imageUrl, description } = action.payload;
+            let { id, title, imageUrl, description, price } = action.payload;
 
             let newProduct = new Product(
-                new Date().toString(),
+                id,
                 'u1',
                 title,
                 imageUrl,
@@ -30,13 +37,13 @@ const products = function (state = initialState, action) {
 
         case UPDATE_PRODUCT:
 
-            let { id } = action.payload;
-
-            const myProductIndex = state.myProducts.findIndex(product => product.id === id);
-            const availableProductIndex = state.availableProducts.findIndex(product => product.id === id);
+            const myProductIndex = state.myProducts.findIndex(product => {
+                return product.id === action.payload.id;
+            });
+            const availableProductIndex = state.availableProducts.findIndex(product => product.id === action.payload.id);
 
             const myUpdatedProduct = new Product(
-                id,
+                action.payload.id,
                 state.myProducts[myProductIndex].ownerId,
                 action.payload.title,
                 action.payload.imageUrl,
@@ -44,7 +51,7 @@ const products = function (state = initialState, action) {
                 action.payload.price);
 
             const availableUpdatedProduct = new Product(
-                id,
+                action.payload.id,
                 state.availableProducts[availableProductIndex].ownerId,
                 action.payload.title,
                 action.payload.imageUrl,
@@ -73,6 +80,7 @@ const products = function (state = initialState, action) {
                 myProducts: state.myProducts.filter(product => product.id !== action.payload.itemId),
             }
     }
+
     return state;
 
 };

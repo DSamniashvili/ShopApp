@@ -18,8 +18,6 @@ const CustomHeader = ({ title, isHome, navigation, enableEditButton = false, han
         }
     }
 
-    console.log('headerBtnType', headerBtnType);
-
     return (
         <View style={{ flexDirection: 'row', backgroundColor: '#fff', height: 50, position: 'relative', top: 0, left: 0, width: '100%' }} >
             <View style={containerStyles} >

@@ -19,9 +19,9 @@ const EditProductScreen = ({ route, navigation }) => {
 
     const submitHandler = useCallback(() => {
         if (!itemToBeEdited) {
-            dispatch(createProductAction(title, +price, imageUrl, description));
+            dispatch(createProductAction(title, imageUrl, description, +price));
         } else {
-            dispatch(updateProductAction(id, title, +price, imageUrl, description));
+            dispatch(updateProductAction(id, title, imageUrl, description, +price));
         }
 
         navigation.goBack();
@@ -77,7 +77,7 @@ const EditProductScreen = ({ route, navigation }) => {
                     ref={titleRef}
                     returnKeyType='next'
                     onEndEditing={() => console.log('finished editing')}
-                    onSubmitEditing={setFocus}
+                    // onSubmitEditing={setFocus}
                     placeholder={'title'} />
                 <TextInput
                     style={styles.textInputStyle}
