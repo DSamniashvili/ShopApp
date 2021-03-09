@@ -2,10 +2,12 @@ import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import { View, Text, SafeAreaView, TextInput, StyleSheet, Button, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { createProductAction, updateProductAction } from '../../actions/product-actions';
-import { CustomHeader } from '../../components';
+import { CustomHeader, Loader } from '../../components';
 
 
 const EditProductScreen = ({ route, navigation }) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -17,14 +19,36 @@ const EditProductScreen = ({ route, navigation }) => {
     const [imageUrl, setImageUrl] = useState(itemToBeEdited ? itemToBeEdited.imageUrl : '');
     const [description, setDescription] = useState(itemToBeEdited ? itemToBeEdited.description : '');
 
-    const submitHandler = useCallback(() => {
-        if (!itemToBeEdited) {
-            dispatch(createProductAction(title, imageUrl, description, +price));
-        } else {
-            dispatch(updateProductAction(id, title, imageUrl, description, +price));
+    useEffect(() => {
+        callAlert();
+    }, [error])
+
+    const callAlert = () => {
+        if (error) {
+            Alert.alert('An errror occured', "Could not save updates on your product", [{
+                text: 'Okey',
+                style: 'cancel',
+            }]);
+        }
+    }
+
+    const submitHandler = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            if (!itemToBeEdited) {
+                await dispatch(createProductAction(title, imageUrl, description, +price));
+            } else {
+                await dispatch(updateProductAction(id, title, imageUrl, description, +price));
+            }
+
+            navigation.goBack();
+        } catch (error) {
+            setError(error.message);
         }
 
-        navigation.goBack();
+        setIsLoading(false);
 
     }, [dispatch, id, title, price, imageUrl, description]);
 
@@ -62,6 +86,9 @@ const EditProductScreen = ({ route, navigation }) => {
         priceRef.current.focus();
     }
 
+    if (isLoading) {
+        return <Loader size={'large'} />;
+    }
 
     return (
         <SafeAreaView>
@@ -120,10 +147,14 @@ const styles = StyleSheet.create({
     textInputStyle: {
         width: '100%',
         height: 50,
-        // backgroundColor: 'white',
         borderBottomColor: 'grey',
         borderBottomWidth: 2,
         marginBottom: 5,
+    },
+    centered: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
 

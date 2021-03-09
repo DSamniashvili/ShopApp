@@ -49,9 +49,9 @@ const HomeScreen = ({ route, navigation }) => {
     }, [loadProducts]);
 
 
-    // useEffect(() => {
-    //     loadProducts();
-    // }, [loadProducts]);
+    useEffect(() => {
+        loadProducts();
+    }, [loadProducts]);
 
 
     // removed CustomHeader since home screen implements react-native default navigation 

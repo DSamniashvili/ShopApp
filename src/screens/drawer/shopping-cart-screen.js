@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, SafeAreaView, Button, Alert } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { CustomHeader } from '../../components/index';
+import { CustomHeader, Loader } from '../../components/index';
 import CartItem from '../../components/shop/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCartAction, emptyCartAction } from '../../actions/cart-actions';
 import { addOrderAction } from '../../actions/orders-actions';
 
 const ShoppingCartScreen = ({ navigation }) => {
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const cartItems = useSelector(state => {
         const transformedCartItems = [];
@@ -31,22 +34,35 @@ const ShoppingCartScreen = ({ navigation }) => {
         dispatch(removeFromCartAction(item.productId));
     }
 
-    const handleOrderNow = (navigation) => {
-        dispatch(addOrderAction(cartItems, cartTotal));
+    const handleOrderNow = async (navigation) => {
+        setIsLoading(true);
+        setError(null);
+
+        await dispatch(addOrderAction(cartItems, cartTotal));
         dispatch(emptyCartAction());
+        setIsLoading(false);
+
         Alert.alert('Congratulations', "Your orders have been placed", [{
             text: 'Got it',
             style: 'cancel',
         }]);
+
         navigation.navigate('Orders');
+    }
+
+    if (isLoading) {
+        return <Loader size={'small'} />;
     }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <CustomHeader title={'My Shopping Cart'} isHome={false} navigation={navigation} />
             <Text>Cart Total: {cartTotal.toFixed(2)}</Text>
-            <Button title="Order now" disabled={cartItems.length === 0}
+            <Button
+                title="Order Now"
+                disabled={cartItems.length === 0}
                 onPress={() => handleOrderNow(navigation)} />
+
             <FlatList data={cartItems}
                 keyExtractor={item => item.productId}
                 renderItem={itemData => <CartItem

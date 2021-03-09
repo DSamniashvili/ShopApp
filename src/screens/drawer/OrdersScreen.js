@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, SafeAreaView, Button, Alert, Modal, StyleSheet, TouchableHighlight, ScrollView, Dimensions } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { ButtonComponent, CustomHeader, CustomHeaderButtonsContainer } from '../../components/index';
+import { ButtonComponent, CustomHeader, CustomHeaderButtonsContainer, Loader } from '../../components/index';
 import CartItem from '../../components/shop/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { emptyOrdersAction, handleEDeleteOrder } from '../../actions/orders-actions';
+import { emptyOrdersAction, fetchOrders, handleEDeleteOrder } from '../../actions/orders-actions';
 import { addOrderAction } from '../../actions/orders-actions';
 import OrderItem from '../../components/shop/OrderItem';
 import OrderDetailItem from '../../components/shop/OrderDetailItem';
@@ -12,10 +12,34 @@ import { COLORS } from '../../constants/color-constants';
 import { Item } from 'react-navigation-header-buttons';
 
 const OrdersScreen = ({ navigation }) => {
+
     const orders = useSelector(state => state.orders.orders);
+
     const dispatch = useDispatch();
+
     const [modalOpen, setModalOpen] = useState(false);
     const [itemContent, setItemContent] = useState(null);
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    const loadOrders = useCallback(async () => {
+        setIsLoading(true);
+        setError(false);
+
+        try {
+            await dispatch(fetchOrders())
+        } catch (error) {
+            setError(error.message);
+        }
+
+        setIsLoading(false);
+    }, [dispatch, setIsLoading, setError]);
+
+
+    useEffect(() => {
+        loadOrders();
+    }, [dispatch, loadOrders]);
 
 
     const handleEmptyOrders = (navigation) => {
@@ -79,6 +103,27 @@ const OrdersScreen = ({ navigation }) => {
             onViewOrderDetails={() => handleViewOrderDetails(item)}
             onDeleteOrder={() => handleDeleteOrder(item.id)} />
     )
+
+    if (error) {
+        return (
+            <View style={styles.centered}>
+                <Text>{error}</Text>
+                <Button onPress={loadOrders} title="Try again"></Button>
+            </View>
+        );
+    }
+
+    if (isLoading) {
+        return <Loader size={'large'} />;
+    }
+
+    if (!isLoading && orders.length === 0) {
+        return (
+            <View style={styles.centered}>
+                <Text>No orders loaded</Text>
+            </View>
+        );
+    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>

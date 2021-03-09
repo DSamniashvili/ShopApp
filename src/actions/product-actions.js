@@ -7,39 +7,55 @@ import {
 import Product from '../models/product-model.js';
 
 export const deleteProductAction = (itemId) => {
-    return {
-        type: DELETE_PRODUCT,
-        payload: {
-            itemId,
-        },
+
+    return async dispatch => {
+        await fetch(`https://auth-albums-dcc75-default-rtdb.firebaseio.com/products/${itemId}.json`, {
+            method: 'DELETE'
+        });
+
+
+        dispatch({
+            type: DELETE_PRODUCT,
+            payload: {
+                itemId,
+            },
+        })
     }
 }
 
 export const updateProductAction = (id, title, imageUrl, description, price) => {
     return async dispatch => {
-        await fetch(`https://auth-albums-dcc75-default-rtdb.firebaseio.com/products/${id}.json`, {
-            method: 'PATCH',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify({
-                title,
-                imageUrl,
-                description,
-                price
-            })
-        });
+        try {
+            const response = await fetch(`https://auth-albums-dcc75-default-rtdb.firebaseio.com/products/${id}.json`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title,
+                    imageUrl,
+                    description,
+                    price
+                })
+            });
 
-        dispatch({
-            type: UPDATE_PRODUCT,
-            payload: {
-                id,
-                title,
-                imageUrl,
-                description,
-                price,
-            },
-        })
+            if (!response.ok) {
+                throw new Error('Something went wrong');
+            }
+
+            dispatch({
+                type: UPDATE_PRODUCT,
+                payload: {
+                    id,
+                    title,
+                    imageUrl,
+                    description,
+                    price,
+                },
+            })
+        } catch (error) {
+            throw error;
+        }
     }
 }
 
