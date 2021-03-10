@@ -8,7 +8,7 @@ const initialState = {
 const places = function (state = initialState, action) {
     switch (action.type) {
         case ADD_PLACE:
-            const newPlace = new Place(new Date().toString(), action.placeData.title)
+            const newPlace = new Place(new Date().toString(), action.placeData.title, action.placeData.image)
             const newPlaces = state.places.concat(newPlace);
 
             return {

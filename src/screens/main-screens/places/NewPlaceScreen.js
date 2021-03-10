@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, ScrollView, TextInput, Button, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addPlaceAction } from '../../../actions/place-actions';
 import { COLORS } from '../../../constants/color-constants';
+import ImagePicker from '../../../components/places/ImagePicker';
 
 
 const NewPlaceScreen = ({ route, navigation }) => {
+    const imageRef = useRef();
     const [title, setTitle] = useState();
     const dispatch = useDispatch();
 
@@ -14,8 +16,13 @@ const NewPlaceScreen = ({ route, navigation }) => {
     }
 
     const savePlaceHandler = () => {
-        dispatch(addPlaceAction(title));
+        dispatch(addPlaceAction(title, imageRef.current.uri));
         navigation.goBack();
+    }
+
+    const saveFilePath = filePath => {
+        console.log('filePath', filePath);
+        imageRef.current = filePath;
     }
 
     return (
@@ -26,6 +33,7 @@ const NewPlaceScreen = ({ route, navigation }) => {
                     value={title}
                     onChangeText={textChangeHandler}
                     style={styles.textInput} />
+                <ImagePicker saveFilePath={saveFilePath} />
                 <Button
                     title="save place"
                     onPress={savePlaceHandler}

@@ -198,7 +198,6 @@ function DrawerNavigator() {
 
 
 const AppContainer = ({ screen }) => {
-    console.log('AppContainer', screen);
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={screen}>
