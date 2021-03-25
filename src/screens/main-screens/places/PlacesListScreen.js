@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import PlaceItem from '../../../components/places/PlaceItem';
+import { requestPermissions } from '../../../services/mapService';
 
 const PlacesListScreen = ({ route, navigation }) => {
     const places = useSelector(state => state.places.places);
@@ -24,11 +25,16 @@ const PlacesListScreen = ({ route, navigation }) => {
 
     return (
         <View>
-            <FlatList
-                data={places}
-                keyExtractor={item => item.id}
-                renderItem={renderItem}
-            />
+            {
+                places.length > 0 ?
+                    <FlatList
+                        data={places}
+                        keyExtractor={item => item.id}
+                        renderItem={renderItem}
+                    /> :
+                    <Text> No Places selected yet</Text>
+            }
+
         </View>
     )
 }

@@ -18,6 +18,7 @@ import {
     NewPlaceScreen,
     PlaceDetailScreen,
     PlacesListScreen,
+    MapMainScreen,
 } from './screens/main-screens/index';
 import {
     ShoppingCartScreen,
@@ -129,7 +130,17 @@ function PlacesStack() {
             <StackPlaces.Screen name="PlacesList" component={PlacesListScreen} options={placesHeaderOptionsHandler} />
             <StackPlaces.Screen name="PlaceDetails" component={PlaceDetailScreen} />
             <StackPlaces.Screen name="NewPlace" component={NewPlaceScreen} />
-            <StackPlaces.Screen name="Map" component={MapScreen} />
+            {
+                // <StackPlaces.Screen name="Map" component={MapScreen} />
+            }
+        </StackPlaces.Navigator>
+    )
+}
+
+function MapStack() {
+    return (
+        <StackPlaces.Navigator initialRouteName="MapMainScreen">
+            <StackPlaces.Screen name="MapMainScreen" component={MapMainScreen} options={placesHeaderOptionsHandler} />
         </StackPlaces.Navigator>
     )
 }
@@ -163,6 +174,8 @@ function TabNavigator() {
                             : IMAGE.HOME_NOFILL;
                     } else if (route.name === 'Places') {
                         iconName = focused ? IMAGE.SETTINGS_ICON : IMAGE.SETTINGS_NOFILL;
+                    } else if (route.name === 'Map') {
+                        iconName = focused ? IMAGE.SETTINGS_ICON : IMAGE.SETTINGS_NOFILL;
                     } else if (route.name === 'Settings') {
                         iconName = focused ? IMAGE.SETTINGS_ICON : IMAGE.SETTINGS_NOFILL;
                     }
@@ -177,6 +190,7 @@ function TabNavigator() {
         >
             <Tab.Screen name="Home" component={HomeStack} />
             <Tab.Screen name="Places" component={PlacesStack} />
+            <Tab.Screen name="Map" component={MapStack} />
             <Tab.Screen name="Settings" component={SettingsStack} />
         </Tab.Navigator>
     )

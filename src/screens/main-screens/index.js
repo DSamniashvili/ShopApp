@@ -9,3 +9,7 @@ export * from './places/MapScreen';
 export * from './places/NewPlaceScreen';
 export * from './places/PlaceDetailScreen';
 export * from './places/PlacesListScreen';
+
+
+
+export * from './map/MapMainScreen';
